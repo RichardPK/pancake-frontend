@@ -36,7 +36,7 @@ const Apy: React.FC<ApyProps> = ({
   }, [cakePriceVsBNB, isBnbPool, tokenPerBlock, tokenPrice, totalStaked])
 
   return (
-    <Td width="100px" align="center">
+    <Td width="100px" align="right">
       <Text>
         {isFinished || isOldSyrup || !apy || apy?.isNaN() ? (
           '-'

@@ -1,18 +1,27 @@
 import React from 'react'
+import styled from 'styled-components'
 import BigNumber from 'bignumber.js'
+import orderBy from 'lodash/orderBy'
 import useSushi from 'hooks/useSushi'
 import { getPools } from 'sushi/utils'
-import { Table } from 'components/Table'
+import { Table, Th } from 'components/Table'
 import { Card, CardBody } from '@pancakeswap-libs/uikit'
 import { QuoteToken } from 'sushi/lib/constants/types'
 import useAllStakedValue from 'hooks/useAllStakedValue'
 import { useBnbPriceUSD } from 'hooks/usePrices'
+import useUserBnbBalance from 'hooks/rework/useBnbBalance'
 import Row from './Row'
+
+const TableCardBody = styled(CardBody)`
+  min-width: 375px;
+  overflow: auto;
+`
 
 const TableView = () => {
   const sushi = useSushi()
   const stakedValues = useAllStakedValue()
   const bnbPriceUSD = useBnbPriceUSD()
+  const userBnbBalance = useUserBnbBalance()
   const cakePriceVsBNB = stakedValues.find((s) => s.tokenSymbol === 'CAKE')?.tokenPrice || new BigNumber(0)
   const priceToBnb = (tokenName: string, tokenPrice: BigNumber, quoteToken: QuoteToken) => {
     if (tokenName === 'BNB') {
@@ -32,26 +41,29 @@ const TableView = () => {
       tokenPrice: priceToBnb(pool.tokenName, stakedValue?.tokenPrice, stakedValue?.quoteToken),
     }
   })
+  const openPools = pools.filter((pool) => !pool.isFinished)
 
-  console.log('pools', pools)
   return (
     <Card>
-      <CardBody>
+      <TableCardBody>
         <Table>
           <thead>
             <tr>
-              <th>Pool</th>
-              <th>APY</th>
-              <th>CAKE Earned</th>
+              <Th>Pool</Th>
+              <Th align="center">Type</Th>
+              <Th align="right">APY</Th>
+              <Th align="right">Earned</Th>
+              <Th align="center">Harvest</Th>
+              <Th>Stake</Th>
             </tr>
           </thead>
           <tbody>
-            {pools.slice(0, 3).map((pool) => (
-              <Row key={pool.sousId} pool={pool} cakePriceVsBNB={cakePriceVsBNB} />
+            {orderBy(openPools, ['sortOrder']).map((pool) => (
+              <Row key={pool.sousId} pool={pool} cakePriceVsBNB={cakePriceVsBNB} userBnbBalance={userBnbBalance} />
             ))}
           </tbody>
         </Table>
-      </CardBody>
+      </TableCardBody>
     </Card>
   )
 }
