@@ -1,3 +1,5 @@
+import BigNumber from 'bignumber.js'
+
 export type IfoStatus = 'coming_soon' | 'live' | 'finished'
 
 export type Ifo = {
@@ -47,6 +49,7 @@ export type Pool = {
   harvest?: boolean
   isFinished?: boolean
   tokenDecimals: number
+  tokenPrice?: BigNumber
 }
 
 export type Nft = {

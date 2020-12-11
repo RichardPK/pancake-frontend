@@ -10,6 +10,7 @@ import Home from './views/Home'
 import Stake from './views/Stake'
 import Lottery from './views/Lottery'
 import Pools from './views/Pools'
+import Version2 from './views/Pools/indexv2'
 import Ifo from './views/Ifo'
 import RegisterToWinPage from './views/Nft/RegisterToWinPage'
 import NotFound from './views/NotFound'
@@ -42,6 +43,9 @@ const App: React.FC = () => {
         </Route>
         <Route path="/syrup">
           <Pools />
+        </Route>
+        <Route path="/pools">
+          <Version2 />
         </Route>
         <Route path="/lottery">
           <Lottery />
