@@ -84,9 +84,16 @@ const Action: React.FC<ActionProps> = ({
     <WithdrawModal max={stakedBalance} onConfirm={onUnstake} tokenName={stakingTokenName} />,
   )
 
+  if (!account) {
+    return (
+      <Td>
+        <UnlockButton size="sm" />
+      </Td>
+    )
+  }
+
   return (
     <Td>
-      {!account && <UnlockButton size="sm" />}
       {account && needsApproval ? (
         <Button disabled={isFinished || requestedApproval} onClick={handleApprove} size="sm">
           {`Approve ${stakingTokenName}`}
