@@ -7,7 +7,6 @@ import Apy from './Apy'
 import Earned from './Earned'
 import Harvest from './Harvest'
 import Action from './Action'
-import PoolTag from './PoolTag'
 
 type PoolWithTokenPrice = {
   tokenPrice: BigNumber
@@ -39,8 +38,7 @@ const Row: React.FC<RowProps> = ({ pool, cakePriceVsBNB, userBnbBalance }) => {
 
   return (
     <tr key={sousId}>
-      <PoolName tokenName={tokenName} />
-      <PoolTag poolCategory={poolCategory} />
+      <PoolName tokenName={tokenName} poolCategory={poolCategory} />{' '}
       <Apy
         cakePriceVsBNB={cakePriceVsBNB}
         tokenPrice={tokenPrice}

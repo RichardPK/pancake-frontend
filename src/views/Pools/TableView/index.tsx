@@ -50,7 +50,6 @@ const TableView = () => {
           <thead>
             <tr>
               <Th>Pool</Th>
-              <Th align="center">Type</Th>
               <Th align="right">APY</Th>
               <Th align="right">Earned</Th>
               <Th align="center">Harvest</Th>
